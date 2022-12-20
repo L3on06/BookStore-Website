@@ -1,0 +1,44 @@
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.hero {
+    background-color: #E6DDC4;
+}
+
+.hero-title {
+    font-weight: bold;
+    letter-spacing: 1px;
+
+}
+
+.hero-paragraf {
+    word-spacing: 3px;
+}
+
+.slider-title {
+    margin: 20px 0;
+    font-size: 2rem;
+    font-weight: bold;
+    /* word-spacing: 5px; */
+}
+
+
+.slider-title>span {
+    padding: 10px;
+    border: .8px solid gray;
+
+}
+
+.slider-img {
+    display: block;
+    height: 27vw !important;
+    object-fit: cover;
+}
+
+@media(max-width: 700px) {
+    .slider-img {
+        height: 40vw !important;
+    }
+}
