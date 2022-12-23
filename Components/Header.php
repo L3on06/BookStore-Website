@@ -1,9 +1,9 @@
 <?php 
 // session_start();
-$page = (isset($_SESSION['page'])) ? ucfirst($_SESSION['page']) : 'Home';
+  $page = (isset($_SESSION['page'])) ? ucfirst($_SESSION['page']) : 'Home';
 
- $_SESSION['is_loggedin'] = true;
- $_SESSION['username'] = 'l3on06';
+  $_SESSION['is_loggedin'] = true;
+  $_SESSION['username'] = 'l3on06';
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +41,7 @@ $page = (isset($_SESSION['page'])) ? ucfirst($_SESSION['page']) : 'Home';
                 <a class="nav-link" href="/eBook/dashboard/slides/index.php">Slides</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/eBook/dashboard/categories/index.php">Categories</a>
+                <a class="nav-link" href="/eBook/dashboard/BookCategories/index.php">Books Categories</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/eBook/dashboard/books/index.php">Books</a>

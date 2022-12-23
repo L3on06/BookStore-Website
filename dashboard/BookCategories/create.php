@@ -1,12 +1,10 @@
-<?php 
-    $_SESSION['page'] = 'update category';
-?>
-
+<?php $_SESSION['page'] = 'Create Book Category';?>
 <?php include('../../Components/Header.php'); ?>
+
 
 <div class="dashboard my-5">
     <div class="container">
-        <h3 class="mb-4">Update category</h3>
+        <h3 class="mb-4">Create Book Category</h3>
         <div class="card">
             <div class="card-body">
                 <form action="#" method="POST">
@@ -14,7 +12,7 @@
                         <label for="name">Name</label>
                         <input type="text" name="name" id="name" class="form-control" required />
                     </div>
-                    <button type="submit" class="btn btn-primary" name="update_category_btn">Update</button>
+                    <button type="submit" class="btn btn-primary" name="create_category_btn">Create</button>
                 </form>
             </div>
         </div>

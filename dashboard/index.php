@@ -1,6 +1,4 @@
-<?php 
-    $_SESSION['page'] = 'home';
-?>
+<?php $_SESSION['page'] = 'home';?>
 
 <?php include('../Components/Header.php'); ?>
 
