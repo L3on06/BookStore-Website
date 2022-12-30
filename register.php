@@ -1,8 +1,8 @@
-<?php$_SESSION['page'] = 'register';?>
-<?php include('Components/Header.php')?>
-
-<?php 
+<?php
+    $_SESSION['page'] = 'register';
+    include('Components/Header.php');
     include('classes/CRUD.php');
+    
     $crud = new CRUD;
 
     $error = '';
