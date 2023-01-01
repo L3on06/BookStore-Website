@@ -1,338 +1,103 @@
-<div class="all-sliders ">
-<div class="best-slider">
-  <div class="container">
-    <h2 class="text-center p-5 slider-title"><span>Best Books of the year</span></h2>
+<?php    
+    include('./classes/CRUD.php');
+    $crud = new CRUD;
+    
+    // Read slider_categories //
+    $slider_categories = $crud->read('slider_categories');
+
+        $ShowBestBooks = false;
+        $BestBookData = [];
+
+    // Read Books //
+    $slides = $crud->read('books');
+    
+        $ShowTrendingBooks = false;
+        $TrendingBooksData = [];
+
+
+    // Read all Databases // 
+    if(count($slides)) {
+        foreach($slides as $slide) {
+        if($slide['slider_category_id'] !== null && is_array($slider_categories)){
+            foreach($slider_categories as $category){
+            if($slide['slider_category_id'] === $category['id'] && $category['name'] === 'Trending books' ){
+                array_push($TrendingBooksData, $slide);
+                $ShowTrendingBooks = true;
+            } else if ($slide['slider_category_id'] === $category['id'] && $category['name'] === 'Best books of the year') {
+              array_push($BestBookData, $slide);
+              $ShowBestBooks = true;
+            }
+          }
+        }
+      }
+    }
+
+    // Delete action //
+    if(isset($_GET['action'])) {
+        if($_GET['action'] === 'delete') {
+            if($crud->delete('books', ['column' => 'id', 'value' => $_GET['id']])) {
+                header('Location: index.php');
+            } else {
+                $error = 'Cannot delete slide with #'+$_GET['id'];
+            }
+        }
+    }
+?>
+
+
+<!-- Best Books -->
+
+<?php if($ShowBestBooks) { ?>
+<div class="container">
+  <h2 class="text-center p-5 slider-title"><span>Best books of the year</span></h2>
     <hr>
-    <div id="bestSlider" class=" carousel slide carousel-slide" data-bs-ride="carousel" data-bs-interval="6000"> 
-      <div class="carousel-inner">
-        <div class="carousel-item active ">
-          <div class="row ">
-            <div class="col-4 m-0.5">
-              <div class="d-flex align-items-center justify-content-center">
-                <img src="./assets/img/book1.png" class="slider-img img-fluid " alt="best books of the year">
-              </div>
-             <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary ">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book2.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book3.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
+      <div class="swiper">
+          <div class="swiper-wrapper">
+             <!-- Slides -->
+             <?php foreach($BestBookData as $slide) {?>
+               <div class="swiper-slide">
+                  <img src="./assets/img/sliders/<?= $slide['image'] ?>" class="book"  alt="Best books of the year">
+               </div>  
+            <?php }?>
+            <!-- end of sliders -->                   
           </div>
-        </div>  
-        <div class="carousel-item">
-           <div class="row ">
-            <div class="col-4 m-0.5">
-              <div class="d-flex align-items-center justify-content-center">
-                <img src="./assets/img/book4.png" class="slider-img img-fluid " alt="best books of the year">
-              </div>
-             <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary ">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book5.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book6.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-          </div>
-         </div>  
-         <div class="carousel-item">
-           <div class="row ">
-            <div class="col-4 m-0.5">
-              <div class="d-flex align-items-center justify-content-center">
-                <img src="./assets/img/book7.png" class="slider-img img-fluid " alt="best books of the year">
-              </div>
-             <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary ">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book8.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book9.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-          </div>
-         </div> 
-        <button class="carousel-control-prev" type="button" data-bs-target="#bestSlider" data-bs-slide="prev" >
-          <span class="carousel-control-prev-icon " aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#bestSlider" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
       </div>
+      <hr>
     </div>
+</div>
+<?php }?>
+
+<!-- End of Best Books -->
+
+
+<!-- Trending -->
+
+
+<?php if($ShowTrendingBooks) { ?>
+ <div class="container">
+  <h2 class="text-center p-5 slider-title"><span>Trending Books</span></h2>
+    <hr>
+      <div class="swiper">
+          <div class="swiper-wrapper">
+             <!-- Slides -->
+             <?php foreach($TrendingBooksData as $slide) {?>
+               <div class="swiper-slide">
+                  <img src="./assets/img/sliders/<?= $slide['image'] ?>" class="book"  alt="Trending books">
+               </div>  
+            <?php }?>
+            <!-- end of sliders -->                   
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-pagination"></div>
+        </div>
     <hr>
   </div>
 </div>
-<div class="trading-slider">
-  <div class="container">
-    <h2 class="text-center p-5 slider-title"><span>Trending Books</span></h2>
-    <hr>
-    <div id="tradingSlider" class="carousel slide carousel-slide" data-bs-ride="carousel" data-bs-interval="10000"> 
-       <div class="carousel-inner">
-        <div class="carousel-item active ">
-          <div class="row ">
-            <div class="col-4 m-0.5">
-              <div class="d-flex align-items-center justify-content-center">
-                <img src="./assets/img/book10.png" class="slider-img img-fluid " alt="best books of the year">
-              </div>
-             <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary ">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book11.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book12.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-          </div>
-        </div>  
-        <div class="carousel-item">
-           <div class="row ">
-            <div class="col-4 m-0.5">
-              <div class="d-flex align-items-center justify-content-center">
-                <img src="./assets/img/book13.png" class="slider-img img-fluid " alt="best books of the year">
-              </div>
-             <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary ">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book14.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book15.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-          </div>
-         </div>  
-         <div class="carousel-item">
-           <div class="row ">
-            <div class="col-4 m-0.5">
-              <div class="d-flex align-items-center justify-content-center">
-                <img src="./assets/img/book16.png" class="slider-img img-fluid " alt="best books of the year">
-              </div>
-             <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary ">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book17.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book18.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-          </div>
-         </div> 
-        <button class="carousel-control-prev" type="button" data-bs-target="#tradingSlider" data-bs-slide="prev" >
-          <span class="carousel-control-prev-icon " aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#tradingSlider" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-    <hr>
-  </div>
-</div>
-<div class="featured-slider">
-  <div class="container">
-    <h2 class="text-center p-5 slider-title"><span>Featured Books</span></h2>
-    <hr>
-    <div id="featuredSlider" class="carousel slide carousel-slide" data-bs-ride="carousel" data-bs-interval="8000"> 
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-         <div class="row ">
-            <div class="col-4 m-0.5">
-              <div class="d-flex align-items-center justify-content-center">
-                <img src="./assets/img/book19.png" class="slider-img img-fluid " alt="best books of the year">
-              </div>
-             <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary ">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book20.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book21.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-          </div>
-        </div>  
-        <div class="carousel-item">
-          <div class="row ">
-            <div class="col-4 m-0.5">
-              <div class="d-flex align-items-center justify-content-center">
-                <img src="./assets/img/book22.png" class="slider-img img-fluid " alt="best books of the year">
-              </div>
-             <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary ">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book23.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book24.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-          </div>
-         </div>  
-         <div class="carousel-item">
-<div class="row ">
-            <div class="col-4 m-0.5">
-              <div class="d-flex align-items-center justify-content-center">
-                <img src="./assets/img/book25.png" class="slider-img img-fluid " alt="best books of the year">
-              </div>
-             <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary ">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book26.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-            <div class="col-4 m-0.5">
-            <div class="d-flex align-items-center justify-content-center">  
-            <img src="./assets/img/book27.png" class="slider-img img-fluid" alt="best books of the year">
-            </div>
-            <div class="card-body text-center p-3 d-flex row align-items-flex-end">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-primary">Read more</a>
-             </div>
-            </div>
-          </div>
-         </div> 
-        <button class="carousel-control-prev" type="button" data-bs-target="#featuredSlider" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon " aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#featuredSlider" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-    <hr>
-  </div>
-</div>
-</div>
+<?php }?>
+
+
+<!-- End of Trending -->
