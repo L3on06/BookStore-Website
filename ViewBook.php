@@ -4,15 +4,49 @@
 
     include('classes/CRUD.php');
     $crud = new CRUD;
-  
+
     $error = '';
     $errors = [];
+
+
   
     if(isset($_GET['id'])) {
         $book = $crud->read('books', ['column' => 'id', 'value' => $_GET['id']]);
         $book = count($book) > 0 ? $book[0] : null;
     }
+
+    if(isset($_GET['add-to-cart'])){
+        $id = $_GET['id'];
+        $qty = $_GET['qty'];
+        
+        if($qty > $book['qty']){
+            $errors[] = 'Qty must be from 1 - '.$book['qty'];
+        } else {
+            if(array_key_exists($id, $_SESSION['cart'])){
+                $ecbook = $_SESSION['cart'][$id];
+                $ecbook['qty'] = $ecbook['qty'] + $qty;
+                $_SESSION['cart'][$id] = $ecbook;
+            } else {
+                $cbook = $book;
+                $cbook['qty'] = $qty;
+                $_SESSION['cart'][$id] = $cbook;
+            }
+        }
+    }
+    
+    // cproduct = cart product 
+    // ecproduct = exist cart product 
+
+  
 ?>
+
+
+<?php
+  echo "<pre>";
+    print_r($_SESSION['cart']);
+?>
+
+
 
 <div class="book py-5">
     <div class="container">
@@ -46,7 +80,7 @@
             } else {
             ?>
             <div class="col-sm-12 col-md-12 col-lg-12">
-              <p>Product with id <?= $_GET['id'] ?> doesn't exist!</p>
+              <p>book with id <?= $_GET['id'] ?> doesn't exist!</p>
             </div>
             <?php } ?>
         </div>
@@ -54,3 +88,5 @@
 </div>
 
 <?php include('Components/Footer.php')?>
+
+
