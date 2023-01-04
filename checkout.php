@@ -1,7 +1,7 @@
 <?php 
-$_SESSION['page'] = 'checkout';
+  include('Components/Header.php');
+  $_SESSION['page'] = 'checkout';
 ?>
-<?php include('Components/Header.php')?>
  
 <div class="cart my-5">
   <div class="container">

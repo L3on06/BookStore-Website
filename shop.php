@@ -1,7 +1,8 @@
-<?php $_SESSION['page'] = 'shop';?>
-    <?php include('Components/Header.php')?>
-
 <?php 
+    include('Components/Header.php');
+        $_SESSION['page'] = 'Shop';
+    
+
     include('classes/CRUD.php');
     $crud = new CRUD;
   
@@ -59,7 +60,7 @@
                           <h5 class="card-title"><?= $book['title'] ?></h5>
                           <p class="card-text"><?= $book['price'] ?> EUR</p>
                         </div>
-                        <a href="view-book.php?id=<?= $book['id'] ?>" class="btn btn-outline-secondary d-flex align-items-center">
+                        <a href="ViewBook.php?id=<?= $book['id'] ?>" class="btn btn-outline-secondary d-flex align-items-center">
                           <img src="./assets/img/eye.svg" alt="" />
                         </a>
                     </div>

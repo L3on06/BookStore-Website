@@ -1,7 +1,7 @@
-<?php $_SESSION['page'] = 'Update Slider Category';?>
-<?php include('../../Components/Header.php'); ?>
-
 <?php 
+    include('../../Components/Header.php');
+    $_SESSION['page'] = 'Update Slider Category';
+
     include('../../classes/CRUD.php');
 
     $crud = new CRUD;
@@ -19,11 +19,9 @@
         if(strlen($_POST['name']) < 3)
             $errors[] = 'Name is empty or too short!';
 
-        if($crud->update(
-            'slider_categories', 
+        if($crud->update('slider_categories', 
             ['name' => $_POST['name']], 
-            ['column' => 'id', 'value' => $_POST['id']])) 
-        {
+            ['column' => 'id', 'value' => $_POST['id']])){
             header('Location: index.php');
         } else {
             $error = 'Something want wrong!';

@@ -1,7 +1,7 @@
-<?php $_SESSION['page'] = 'create Book';?>
-<?php include('../../Components/Header.php'); ?>
-
 <?php 
+    include('../../Components/Header.php');
+     $_SESSION['page'] = 'create Book';
+
     include('../../classes/CRUD.php');
     $crud = new CRUD;
     $sliderTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/webp'];
@@ -17,8 +17,11 @@
             $errors[] = 'Book category is empty!';
         }
         
-        if(strlen($_POST['name']) < 3)
+        if(strlen($_POST['title']) < 3)
             $errors[] = 'name is empty or too short!';
+
+        if(strlen($_POST['content']) < 3)
+            $errors[] = 'content is empty or too short!';
 
         if($_POST['qty'] <= 0)
             $errors[] = 'Qty is not valid!';
@@ -37,13 +40,14 @@
 
             if($crud->create('books', [
                 'book_category_id' => $_POST['book_category_id'],
-                'name' => $_POST['name'],
+                'title' => $_POST['title'],
+                'content' => $_POST['content'],
                 'qty' => $_POST['qty'],
                 'price' => $_POST['price'],
                 'image' => $filename
             ])) {
                 // upload
-                move_uploaded_file($_FILES['image']['tmp_name'], '../../assets/img/books/'.$filename);
+                move_uploaded_file($_FILES['image']['tmp_name'], '../../assets/img/sliders/'.$filename);
                 header('Location: index.php');
             } else {
                 $error = 'Something want wrong!';
@@ -84,8 +88,12 @@
                         </select>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name" class="form-control" required />
+                        <label for="title">title</label>
+                        <input type="text" name="title" id="title" class="form-control" required />
+                    </div>
+                     <div class="form-group mb-4">
+                        <label for="content">Content</label>
+                        <input type="text" name="content" id="content" class="form-control" required />
                     </div>
                     <div class="form-group mb-4">
                         <label for="qty">Qty</label>

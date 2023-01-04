@@ -1,7 +1,7 @@
 <?php 
-$_SESSION['page'] = 'cart';
+  include('Components/Header.php');
+  $_SESSION['page'] = 'cart';
 ?>
-<?php include('Components/Header.php')?>
  
 <div class="cart my-5">
   <div class="container">

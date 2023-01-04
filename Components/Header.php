@@ -1,8 +1,6 @@
 <?php 
     session_start();
-
     $page = (isset($_SESSION['page'])) ? ucfirst($_SESSION['page']) : 'Home';
-
   // if(!isset($_SESSION['is_loggedin'])){
       // header('Location: login.php');
   // } else {
@@ -10,7 +8,6 @@
       // header('Location: login.php');
     // }
   // }
-
 
   if(isset($_GET['action'])){
     if($_GET['action'] === 'sign_out'){
@@ -108,7 +105,12 @@
         </ul>
         </li>
           <li class="nav-item">
-          <a class="nav-link" href="/ebook/cart.php">Cart(0)</a>
+          <a class="nav-link" href="/ebook/cart.php">Cart  
+                    <?php if(isset($_SESSION['cart'])) { ?>
+                        (<?= count($_SESSION['cart']) ?>)
+                    <?php } else { ?>
+                        (0)
+                    <?php } ?></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

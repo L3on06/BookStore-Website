@@ -1,5 +1,4 @@
 <?php 
-
 include 'Database.php';
 
 class CRUD {
@@ -30,12 +29,16 @@ class CRUD {
         return $this->mysqli->query($sql) ? true : $this->mysqli->error;
     }
     
-    public function read($table, $condition = [], $limit = null) {
+    public function read($table, $condition = [], $limit = null, $order= []) {
         $sql = "SELECT * FROM `".$table."`";
         $items = [];
 
         if(count($condition)) {
             $sql .= " WHERE `".$condition['column']."`='".$condition['value']."'";
+        }
+
+        if(count($order) == 2) {
+            $sql .= " ORDER BY " .$order['column'] ." ".$order['order'];
         }
 
         if(!is_null($limit)) {

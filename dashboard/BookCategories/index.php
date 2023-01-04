@@ -1,7 +1,7 @@
-<?php $_SESSION['page'] = 'Book Categories';?>
-<?php include('../../Components/Header.php'); ?>
+<?php   
+    include('../../Components/Header.php');
+    $_SESSION['page'] = 'Book Categories';
 
-<?php    
     include('../../classes/CRUD.php');
     $crud = new CRUD;
     $book_categories = $crud->read('book_categories');

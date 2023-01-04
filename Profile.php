@@ -1,7 +1,7 @@
-<?php $_SESSION['page'] = 'Profile';?>
-<?php include('Components/Header.php'); ?>
-
 <?php 
+    include('Components/Header.php'); 
+    $_SESSION['page'] = 'Profile';
+
     include('classes/CRUD.php');
     $crud = new CRUD;
 

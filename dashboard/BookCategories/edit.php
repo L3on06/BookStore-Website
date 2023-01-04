@@ -1,7 +1,7 @@
-<?php $_SESSION['page'] = 'update Book Category';?>
-<?php include('../../Components/Header.php'); ?>
-
 <?php 
+    include('../../Components/Header.php'); 
+    $_SESSION['page'] = 'update Book Category';
+
     include('../../classes/CRUD.php');
 
     $crud = new CRUD;

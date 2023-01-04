@@ -1,8 +1,8 @@
-<?php $_SESSION['page'] = 'Slider Categories';?>
-<?php include('../../Components/Header.php'); ?>
-
-<?php    
+<?php 
+    include('../../Components/Header.php'); 
+    $_SESSION['page'] = 'Slider Categories';
     include('../../classes/CRUD.php');
+
     $crud = new CRUD;
     $slider_categories = $crud->read('slider_categories');
 
@@ -20,8 +20,10 @@
 
 <div class="dashboard my-5">
     <div class="container">
-        <h3 class="mb-4">Book Categories</h3>
-        <a href="create.php" class="btn btn-primary mb-4">Slider Category</a>
+        <div class="d-flex justify-content-between">
+            <h3 class="mb-4">Slider Categories</h3>
+            <a href="create.php" class="btn btn-primary mb-4">Slider Category</a>
+        </div>
         <div class="card">
             <div class="card-body">
                 <?php if(isset($error)) echo '<p>'.$error.'</p>'; ?>

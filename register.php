@@ -1,6 +1,6 @@
 <?php
-    $_SESSION['page'] = 'register';
     include('Components/Header.php');
+    $_SESSION['page'] = 'register';
     include('classes/CRUD.php');
     
     $crud = new CRUD;
