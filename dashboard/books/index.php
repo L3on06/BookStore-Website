@@ -4,21 +4,26 @@
 
     include('../../classes/CRUD.php');
     $crud = new CRUD;
-    $books = $crud->read('books');
 
-    if(isset($_GET['action'])) {
-        if($_GET['action'] === 'delete') {
-            if($crud->delete('books', ['column' => 'id', 'value' => $_GET['id']])) {
-                header('Location: index.php');
-            } else {
-                $error = 'Cannot delete Books with #'+$_GET['id'];
-            }
-        }
+     $books = $crud->read('books');
+
+    if(isset($_GET['search'])) {
+        $books = $crud->search('books', 'title', $_GET['search']);
     }
 ?>
 
+<div class="search-sort my-4">
+    <div class="container">
+        <div class="row ">
+            <div class="col-12">
+                <form  action="<?= $_SERVER['PHP_SELF'] ?>">
+                    <input type="search" name="search" id="search" class="form-control" placeholder="Search book by title ..." value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="dashboard my-5">
     <div class="container">
         <div class="d-flex justify-content-between">
             <h3 class="mb-4">Books</h3>
@@ -49,12 +54,12 @@
                                 <td><?= $book['qty'] ?></td>
                                 <td><?= $book['price'] ?> EUR</td>
                                 <td>
-                                    <img src="../../assets/img/sliders/<?= $book['image'] ?>" height="80" />
+                                    <img src="../../assets/img/books/<?= $book['image'] ?>" height="80" loading="lazy"/>
                                 </td>
                                 <td>
                                     <a href="edit.php?id=<?= $book['id'] ?>">Edit</a>
                                     <a href="?action=delete&id=<?= $book['id'] ?>">Delete</a>
-                                    <a href="slides.php?id=<?= $book['id'] ?>">slides</a>
+                                    <a href="slider.php?id=<?= $book['id'] ?>">slider</a>
                                 </td>
                             </tr>
                             <?php

@@ -1,3 +1,17 @@
+const search = document.querySelector('#search')
+
+if (search) {
+    search.addEventListener('keyup', e => {
+        e.preventDefault()
+        switch (e.keyCode) {
+            case 13:
+                window.location.href = `/ebook/shop.php?search=${e.target.value}`
+                break;
+        }
+    })
+}
+
+
 const swiper = new Swiper('.swiper', {
     slidesPerGroup: 1,
     slidesPerView: "auto",
@@ -22,3 +36,6 @@ const swiper = new Swiper('.swiper', {
     },
 
 });
+
+
+

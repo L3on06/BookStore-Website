@@ -1,8 +1,8 @@
-<div class=" py-3 mt-5 bg-light">
+<footer class="py-3 mt-5 bg-light mt-auto">
     <div class="container">
         <p class="text-center m-0 p-0">Copyright &copy; eBook</p>
     </div>
-</div>
+</footer>
 
 
 <!-- Swiper Js -->
