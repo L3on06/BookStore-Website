@@ -5,14 +5,27 @@
     // Read slider_categories //
     $slider_categories = $crud->read('slider_categories');
 
+        // Read Books //
+    $slides = $crud->read('books');
+    
         $ShowBestBooks = false;
         $BestBookData = [];
-
-    // Read Books //
-    $slides = $crud->read('books');
     
         $ShowTrendingBooks = false;
         $TrendingBooksData = [];
+
+        $ShowBestBooksForKids = false;
+        $BestBookForKidsData = [];
+
+        $ShowNewReleases = false;
+        $NewReleasesData = [];
+
+        $ShowBestProgrammingBooks = false;
+        $BestProgrammingBooksData = [];
+
+        $ShowNovel = false;
+        $NovelData = [];
+
 
 
     // Read all Databases // 
@@ -26,6 +39,19 @@
             } else if ($slide['slider_category_id'] === $category['id'] && $category['name'] === 'Best books of the year') {
               array_push($BestBookData, $slide);
               $ShowBestBooks = true;
+            }
+             else if ($slide['slider_category_id'] === $category['id'] && $category['name'] === 'Best books for Kids') {
+              array_push($BestBookForKidsData, $slide);
+              $ShowBestBooksForKids = true;
+            } else if ($slide['slider_category_id'] === $category['id'] && $category['name'] === 'New Releases') {
+              array_push($NewReleasesData, $slide);
+              $ShowNewReleases = true;
+            } else if ($slide['slider_category_id'] === $category['id'] && $category['name'] === 'Best Programming Books') {
+              array_push($BestProgrammingBooksData, $slide);
+              $ShowBestProgrammingBooks = true;
+            } else if ($slide['slider_category_id'] === $category['id'] && $category['name'] === '	Novel') {
+              array_push($NovelData, $slide);
+              $ShowNovel = true;
             }
           }
         }
@@ -56,7 +82,7 @@
              <!-- Slides -->
              <?php foreach($BestBookData as $slide) {?>
                <div class="swiper-slide">
-                  <img src="./assets/img/sliders/<?= $slide['image'] ?>" class="book"  alt="Best books of the year">
+                  <img src="./assets/img/books/<?= $slide['image'] ?>" class="book"  alt="Best books of the year">
                </div>  
             <?php }?>
             <!-- end of sliders -->                   
@@ -85,7 +111,7 @@
              <!-- Slides -->
              <?php foreach($TrendingBooksData as $slide) {?>
                <div class="swiper-slide">
-                  <img src="./assets/img/sliders/<?= $slide['image'] ?>" class="book"  alt="Trending books">
+                  <img src="./assets/img/books/<?= $slide['image'] ?>" class="book"  alt="Trending books">
                </div>  
             <?php }?>
             <!-- end of sliders -->                   
@@ -100,4 +126,92 @@
 <?php }?>
 
 
+
 <!-- End of Trending -->
+
+
+
+
+<!-- Show best Books for kids -->
+
+<?php if($ShowBestBooksForKids) { ?>
+<div class="container">
+  <h2 class="text-center p-5 slider-title"><span>Best Books For Kids</span></h2>
+    <hr>
+      <div class="swiper">
+          <div class="swiper-wrapper">
+             <!-- Slides -->
+             <?php foreach($BestBookForKidsData as $slide) {?>
+               <div class="swiper-slide">
+                  <img src="./assets/img/books/<?= $slide['image'] ?>" class="book"  alt="Best Books For Kids">
+               </div>  
+            <?php }?>
+            <!-- end of sliders -->                   
+          </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
+      </div>
+      <hr>
+    </div>
+</div>
+<?php }?>
+
+<!-- End of Best Books For Kids -->
+
+
+<!-- New Releases -->
+
+<?php if($ShowNewReleases) { ?>
+ <div class="container">
+  <h2 class="text-center p-5 slider-title"><span>New Releases</span></h2>
+    <hr>
+      <div class="swiper">
+          <div class="swiper-wrapper">
+             <!-- Slides -->
+             <?php foreach($NewReleasesData as $slide) {?>
+               <div class="swiper-slide">
+                  <img src="./assets/img/books/<?= $slide['image'] ?>" class="book"  alt="NewReleases">
+               </div>  
+            <?php }?>
+            <!-- end of sliders -->                   
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+    <hr>
+  </div>
+</div>
+<?php }?>
+
+<!-- End of New Releases -->
+
+
+<!-- Best Programming Books -->
+
+<?php if($ShowBestProgrammingBooks) { ?>
+<div class="container">
+  <h2 class="text-center p-5 slider-title"><span>Best Programming Books</span></h2>
+    <hr>
+      <div class="swiper">
+          <div class="swiper-wrapper">
+             <!-- Slides -->
+             <?php foreach($BestProgrammingBooksData as $slide) {?>
+               <div class="swiper-slide">
+                  <img src="./assets/img/books/<?= $slide['image'] ?>" class="book"  alt="Best Programming Books">
+               </div>  
+            <?php }?>
+            <!-- end of sliders -->                   
+          </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-pagination"></div>
+      </div>
+      <hr>
+    </div>
+</div>
+<?php }?>
+
+<!-- End of Best Programming Books -->
+
