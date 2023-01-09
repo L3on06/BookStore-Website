@@ -59,36 +59,57 @@ if(count($errors) === 0){
 
 <div class="cart my-5">
     <div class="container">
-        <?php if(count($_SESSION['cart']) > 0) {
+        <?php if(isset($_SESSION['cart']) && (count($_SESSION['cart']) > 0)) {
         ?>
         <div class="table-responsive">
             <table class="table table-bordered">
+
                 <tr>
-                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Title</th>
                     <th>Qty</th>
                     <th>Price</th>
-                    <th></th>
                 </tr>
+                                   <?php 
+                    if(count($errors)) {
+                        echo '<ul>';
+                        foreach($errors as $error) {
+                            echo '<li>'.$error.'</li>';
+                        }
+                        echo '</ul>';
+                    }
+                ?>
                 <tr>
                     <?php 
                     $total = 0.00;
                     foreach($_SESSION['cart'] as $book) {
+                        // print_r($book);
+                        // if($book !== ''){
+                        if($book['qty'] > 0){
+                      print_r($book['qty']);
+
                         $total += ($book['qty'] * $book['price']);
                     ?>
                     <tr>
-                        <td><?= $book['title'] ?></td>
-                        <td>
-                            <span class="d-inline-block mx-2"><?= $book['qty'] ?></span>
+                        <td class="text-center"><img src="./assets/img/books/<?= $book['image'] ?>" class="" alt="<?= $book['title'] ?>" height="150" loading="lazy" style="margin: 0 auto; box-shadow: -7px 6px 12px rgba(0, 0, 0, 0.3); transition: all 1s ease-in;"/></td>
+                        <td class="align-middle"><?= $book['title'] ?></td>
+                        <td class="align-middle">
+                            <a href="?action=decrease&id=<?= $book['id'] ?>" class="btn btn-sm btn-primary">-</a>
+                            <span class="d-inline-block mx-2" type="number" name="qty" id="qty" min="0" max="<?= $book['qty'] ?>" value="1"><?= $book['qty'] ?></span>
+                            <a href="?action=increase&id=<?= $book['id'] ?>" class="btn btn-sm btn-primary">+</a>
                         </td>
-                        <td><?= $book['price'] ?> EUR</td>
-                        <td><?= $book['qty'] * $book['price'] ?> EUR</td>
+                        <td class="align-middle"><?= $book['qty'] * $book['price'] ?> EUR</td>
                     </tr>
                     <?php
-                    }
+                        }
+                        // } else{
+                                // $_SESSION['cart'] = [];
+                        // }
+                        }
                     ?>
                 </tr>
                 <tr>
-                    <td colspan="3"></td>
+                    <td colspan="3"><b>Total:</b></td>
                     <td><b><?= $total ?> EUR</b></td>
                 </tr>
             </table>

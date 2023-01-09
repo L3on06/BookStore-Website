@@ -8,7 +8,6 @@
     $error = '';
     $errors = [];
 
-
   
     if(isset($_GET['id'])) {
         $book = $crud->read('books', ['column' => 'id', 'value' => $_GET['id']]);
@@ -33,17 +32,12 @@
             }
         }
     }
-    
-    // cproduct = cart product 
-    // ecproduct = exist cart product 
-
-  
 ?>
 
 
 <?php
-  echo "<pre>";
-    print_r($_SESSION['cart']);
+//   echo "<pre>";
+    // print_r($_SESSION['cart']);
 ?>
 
 
@@ -54,13 +48,15 @@
         <?php 
             if(!is_null($book)) {
             ?>
-            <div class="col-sm-12 col-md-4 col-lg-4 mb-4">
-                <img src="./assets/img/sliders/<?= $book['image'] ?>" class="img-fluid" alt="<?= $book['title'] ?>" />
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <img src="./assets/img/books/<?= $book['image'] ?>" class="img-thumbnail" alt="<?= $book['title'] ?>" style="margin: 0 auto; box-shadow: -7px 6px 12px rgba(0, 0, 0, 0.3); transition: all 1s ease-in;"/>
             </div>
-            <div class="col-sm-12 col-md-8 col-lg-8 mb-4">
-                <h3><?= $book['title'] ?></h3>
-                <p><?= $book['price'] ?> EUR</p>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <h1><?= $book['title'] ?></h1>
+
+                <h3 class="mt-5"><b>Description</b></h3>
                 <p><?= $book['content'] ?></p>
+                
                 <?php 
                     if(count($errors)) {
                         echo '<ul>';
@@ -70,10 +66,16 @@
                         echo '</ul>';
                     }
                 ?>
-                <form action="<?= $_SERVER['PHP_SELF'] ?>">
-                    <input type="number" name="qty" id="qty" min="0" max="<?= $book['qty'] ?>" value="1" />
-                    <input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
-                    <button type="submit" name="add-to-cart" class="btn btn-sm btn-outline-primary">Add to cart</button>
+
+                <form action="<?= $_SERVER['PHP_SELF'] ?>" class="d-flex justify-content-between ">
+                    <div>
+                        <input type="number" name="qty" id="qty" min="0" max="<?= $book['qty'] ?>" value="1" />
+                        <input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
+                        <button type="submit" name="add-to-cart" class="btn btn-sm btn-outline-primary">Add to cart</button>
+                    </div>
+                <div>
+                    <h4><b><?= $book['price'] ?> EUR</b></h4>
+                </div>
                 </form>
             </div>
             <?php 

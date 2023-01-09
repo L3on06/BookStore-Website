@@ -7,6 +7,10 @@
 
     $slides = $crud->read('books');
     
+    if(isset($_GET['search'])) {
+        $slides = $crud->search('books', 'title', $_GET['search']);
+    }
+    
     $error = '';
     $errors = [];
 
@@ -20,6 +24,19 @@
         }
     }
 ?>
+
+
+<div class="search-sort my-4">
+    <div class="container">
+        <div class="row ">
+            <div class="col-12">
+                <form  action="<?= $_SERVER['PHP_SELF'] ?>">
+                    <input type="search" name="search" id="search" class="form-control" placeholder="Search book by title ..." value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="dashboard my-5">
     <div class="container">
@@ -46,7 +63,7 @@
                             <tr>
                                 <td><?= $slide['id'] ?></td>
                                 <td>
-                                    <img src="../../assets/img/sliders/<?= $slide['image'] ?>" height="80" />
+                                    <img src="../../assets/img/books/<?= $slide['image'] ?>" height="80" />
                                 </td>
                                 <td><?= $slide['title'] ?></td>
                                 <td><?= $slide['content'] ?></td>

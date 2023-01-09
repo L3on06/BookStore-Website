@@ -47,22 +47,29 @@
 
 <div class="latest-books py-5">
     <div class="container">
-        <div class="row">
+        <div class="row ">
             <?php 
             if(count($books) > 0) {
               foreach($books as $book) {
             ?>
             <div class="col-sm-12 col-md-3 col-lg-3 mb-4">
-                <div class="card py-4">
-                     <img src="./assets/img/sliders/<?= $book['image'] ?>" class="book"  alt="Best books of the year">
-                    <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="card" style="height: 100%;">
+                     <img src="./assets/img/books/<?= $book['image'] ?>" class="book-shadow img-thumbnail"  alt="<?= $book['title'] ?>" loading="lazy" style="height: 420px; width:90%; margin: 0 auto; box-shadow: -7px 6px 12px rgba(0, 0, 0, 0.3); transition: all 1s ease-in;">
+                    <div class="card-body row align-items-start">
                         <div>
-                          <h5 class="card-title"><?= $book['title'] ?></h5>
-                          <p class="card-text"><?= $book['price'] ?> EUR</p>
+                          <h5 class="title"><b><?= $book['title'] ?></b></h5>
                         </div>
-                        <a href="ViewBook.php?id=<?= $book['id'] ?>" class="btn btn-outline-secondary d-flex align-items-center">
-                          <img src="./assets/img/eye.svg" alt="" />
-                        </a>
+                        <div class="d-flex justify-content-between align-self-end">
+                            <div>
+                                <p class="card-text "><?= $book['price'] ?> EUR</p>
+                            </div>
+                            <a href="ViewBook.php?id=<?= $book['id'] ?>" class="btn btn-outline-secondary d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                            </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

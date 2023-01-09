@@ -47,7 +47,7 @@
                 'image' => $filename
             ])) {
                 // upload
-                move_uploaded_file($_FILES['image']['tmp_name'], '../../assets/img/sliders/'.$filename);
+                move_uploaded_file($_FILES['image']['tmp_name'], '../../assets/img/books/'.$filename);
                 header('Location: index.php');
             } else {
                 $error = 'Something want wrong!';

@@ -60,7 +60,7 @@
                     'book_category_id' => $_POST['book_category_id']
                 ], ['column' => 'id', 'value' => $_POST['id']])) {
                      // upload
-                    move_uploaded_file($_FILES['image']['tmp_name'], '../../assets/img/sliders/'.$filename);
+                    move_uploaded_file($_FILES['image']['tmp_name'], '../../assets/img/books/'.$filename);
                     header('Location: index.php');
                 } else {
                     $error = 'Something want wrong!';
@@ -128,8 +128,8 @@
                         <input type="file" name="image" id="image" class="form-control" accept="image/png, image/jpg, image/jpeg, image/webp" />
                         <?php if(!is_null($books) && ($books['image'] !== 'noimage.png')): ?>
                         <br>
-                        <input type="hidden" name="image" value='../../assets/img/sliders/<?= $books['image'] ?>'/>
-                        <input type="image" src="../../assets/img/sliders/<?= $books['image'] ?>" height="80"/>
+                        <input type="hidden" name="image" value='../../assets/img/books/<?= $books['image'] ?>'/>
+                        <input type="image" src="../../assets/img/books/<?= $books['image'] ?>" height="80"/>
                         <?php endif; ?>   
                     </div>
                     <input type="hidden" name="id" value='<?= $_GET['id'] ?>' />
