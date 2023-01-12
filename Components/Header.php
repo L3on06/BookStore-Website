@@ -1,29 +1,28 @@
 <?php 
     session_start();
+    $page = (isset($_SESSION['page'])) ? ucfirst($_SESSION['page']) : 'Home';
 
-
+   
+    
     $path = $_SERVER['SCRIPT_NAME'];
     $pages = [
-        '/orders/index.php',
-        '/profile.php'
+        '/ebook',
+        '/ebook/index.php',
+        '/ebook/shop.php',
+        '/ebook/cart.php',
+        '/ebook/Profile.php'
     ];
-
     // roles ----------------------
+
     if(isset($_SESSION['role'])) {
-        if($_SESSION['role'] === 'client') {
+        if($_SESSION['role'] === 'buyer') {
             if(!in_array($path, $pages)) {
-                die('<center>You doesnt have permission to view this page - <a href="/eBook/index.php">back</a>.</center>');
+                die('<center>You doesnt have permission to view this page - <a href="/ebook">back</a>.</center>');
             }
         }
     }
-
-
-    // roles ----------------------
-
-
-
-    $page = (isset($_SESSION['page'])) ? ucfirst($_SESSION['page']) : 'Home';
-
+    
+    // regenrate auth sessions from cookies
     if(count($_COOKIE) > 0) {
         $auth_sessions = ['user_id', 'username', 'role', 'is_loggedin'];
 
@@ -36,6 +35,8 @@
 
     if(isset($_GET['action'])) {
         if($_GET['action'] === 'sign_out') {
+           unset($_SESSION['cart']);
+
             unset($_SESSION['user_id']);
             unset($_SESSION['username']);
             unset($_SESSION['role']);
@@ -53,11 +54,10 @@
             setcookie('role', null, $expire);
             setcookie('is_loggedin', null, $expire);
 
-            header('Location: /eBook/index.php');
+            header('Location: /ebook/index.php');
         }
     }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -84,15 +84,14 @@
 <body class="d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container">
-      <a class="navbar-brand" href="/eBook/index.php">Book Store</a>
+      <a class="navbar-brand" href="/ebook/">Book Store</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <?php if(isset($_SESSION['is_loggedin'])): ?>
       <li class="nav-item ">
-            <li> <a class="nav-link active" aria-current="page" href="/eBook/index.php">Home</a></li>
+            <li> <a class="nav-link active" aria-current="page" href="/ebook/">Home</a></li>
         </li>
             <li class="nav-item ">
             <li>  <a class="nav-link" href="/ebook/shop.php">Shop</a></li>
@@ -106,23 +105,7 @@
                                 <?php } ?>
                             </a>
                             </li>
-              <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
-          <ul class="dropdown-menu">
-            <li> <a class="nav-link active" aria-current="page" href="/eBook/dashboard/index.php">Home</a></li>
-            <li> <a class="nav-link" href="/eBook/dashboard/slides/index.php">Slides</a></li>
-            <li> <a class="nav-link" href="/eBook/dashboard/BookCategories/index.php">Book Categories</a></li>
-            <li>   <a class="nav-link" href="/eBook/dashboard/SliderCategories/index.php">Slider Categories</a></li>
-            <li>  <a class="nav-link" href="/eBook/dashboard/books/index.php">Books</a></li>
-            <li>   <a class="nav-link" href="/eBook/dashboard/orders/index.php">Orders</a></li>
-
-        </ul>
-        </li>
-              <?php else:?>
-                <li class="nav-item">
-                      <a class="nav-link" href="/ebook/shop.php">Shop</a>
-                    </li>
-                     <li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                       <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/ebook/index.php">Komedi</a></li>
@@ -131,23 +114,31 @@
                         <li><a class="dropdown-item" href="/ebook/index.php">Action</a></li>
                     </ul>
                     </li>
-                     <li class="nav-item">
-                            <a class="nav-link" href="cart.php">Cart 
-                                <?php if(isset($_SESSION['cart'])) { ?>
-                                    (<?= count($_SESSION['cart']) ?>)
-                                <?php } else { ?>
-                                    (0)
-                                <?php } ?>
-                            </a>
-                            </li>
+      <?php if(isset($_SESSION['is_loggedin'])){ 
 
+        
+        if((isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) { 
+            ?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+            <ul class="dropdown-menu">
+                <li> <a class="nav-link active" aria-current="page" href="/ebook/dashboard/index.php">Home</a></li>
+                <li> <a class="nav-link" href="/ebook/dashboard/slides/index.php">Slides</a></li>
+                <li> <a class="nav-link" href="/ebook/dashboard/BookCategories/index.php">Book Categories</a></li>
+                <li> <a class="nav-link" href="/ebook/dashboard/SliderCategories/index.php">Slider Categories</a></li>
+                <li> <a class="nav-link" href="/ebook/dashboard/books/index.php">Books</a></li>
+                <li> <a class="nav-link" href="/ebook/dashboard/orders/index.php">Orders</a></li>
+            </ul>
+        </li>
+        <?php 
+        } 
+      }
+        ?>
 
-      <?php endif;?>
-
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <?= isset($_SESSION['is_loggedin']) ? $_SESSION['username'] : 'Guest' ?>
-                </a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <?= isset($_SESSION['is_loggedin']) ? $_SESSION['username'] : 'Guest' ?>
+            </a>
           <ul class="dropdown-menu">
             <?php if(!isset($_SESSION['is_loggedin'])): ?>
             <li><a class="dropdown-item" href="/ebook/Login.php">login</a></li>
