@@ -34,14 +34,6 @@
     }
 ?>
 
-
-<?php
-//   echo "<pre>";
-    // print_r($_SESSION['cart']);
-?>
-
-
-
 <div class="book py-5">
     <div class="container">
         <div class="row">
@@ -89,6 +81,5 @@
     </div>
 </div>
 
-<?php include('Components/Footer.php')?>
 
 

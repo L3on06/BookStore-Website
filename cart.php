@@ -76,11 +76,7 @@
                     <?php 
                     $total = 0.00;
                     foreach($_SESSION['cart'] as $book) {
-                        // print_r($book);
-                        // if($book !== ''){
                         if($book['qty'] > 0){
-                      print_r($book['qty']);
-
                         $total += ($book['qty'] * $book['price']);
                     ?>
                     <tr>

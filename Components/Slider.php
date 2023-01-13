@@ -2,11 +2,11 @@
     include('./classes/CRUD.php');
     $crud = new CRUD;
     
-    // Read slider_categories //
-    $slider_categories = $crud->read('slider_categories');
+        // Read slider_categories //
+         $slider_categories = $crud->read('slider_categories');
 
         // Read Books //
-    $slides = $crud->read('books');
+        $slides = $crud->read('books');
     
         $ShowBestBooks = false;
         $BestBookData = [];
@@ -78,11 +78,14 @@
   <h2 class="text-center p-5 slider-title"><span>Best books of the year</span></h2>
     <hr>
       <div class="swiper">
-          <div class="swiper-wrapper">
+          <div class="swiper-wrapper d-flex">
              <!-- Slides -->
              <?php foreach($BestBookData as $slide) {?>
                <div class="swiper-slide">
-                  <img src="./assets/img/books/<?= $slide['image'] ?>" class="book"  alt="Best books of the year">
+               <a href="ViewBook.php?id=<?= $slide['id'] ?>">
+                <img src="./assets/img/books/<?= $slide['image'] ?>" class="book"  alt="Best books of the year">
+              </a>   
+                </button>
                </div>  
             <?php }?>
             <!-- end of sliders -->                   

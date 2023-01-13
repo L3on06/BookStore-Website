@@ -34,6 +34,7 @@
                             <th>#</th>
                             <th>Name</th>
                             <th></th>
+                            
                         </tr>
                         <?php 
                         if(count($book_categories)) {
