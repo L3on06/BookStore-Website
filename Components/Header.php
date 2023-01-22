@@ -1,8 +1,6 @@
 <?php 
     session_start();
     $page = (isset($_SESSION['page'])) ? ucfirst($_SESSION['page']) : 'Home';
-
-   
     
     $path = $_SERVER['SCRIPT_NAME'];
     $pages = [
@@ -12,8 +10,8 @@
         '/ebook/cart.php',
         '/ebook/Profile.php'
     ];
-    // roles ----------------------
 
+    // roles ----------------------
     if(isset($_SESSION['role'])) {
         if($_SESSION['role'] === 'buyer') {
             if(!in_array($path, $pages)) {
@@ -90,35 +88,34 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item ">
+          <li class="nav-item ">
             <li> <a class="nav-link active" aria-current="page" href="/ebook/">Home</a></li>
-        </li>
-            <li class="nav-item ">
+          </li>
+         <li class="nav-item ">
             <li>  <a class="nav-link" href="/ebook/shop.php">Shop</a></li>
-        </li>
-           <li class="nav-item">
-                            <a class="nav-link" href="/ebook/cart.php">Cart 
-                                <?php if(isset($_SESSION['cart'])) { ?>
-                                    (<?= count($_SESSION['cart']) ?>)
-                                <?php } else { ?>
-                                    (0)
-                                <?php } ?>
-                            </a>
-                            </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/ebook/index.php">Komedi</a></li>
-                        <li><a class="dropdown-item" href="/ebook/index.php">Romance</a></li>
-                        <li><a class="dropdown-item" href="/ebook/index.php">Kid</a></li>
-                        <li><a class="dropdown-item" href="/ebook/index.php">Action</a></li>
-                    </ul>
-                    </li>
-      <?php if(isset($_SESSION['is_loggedin'])){ 
-
-        
-        if((isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) { 
-            ?>
+          </li>
+         <li class="nav-item">
+            <a class="nav-link" href="/ebook/cart.php">Cart 
+                <?php if(isset($_SESSION['cart'])) { ?>
+                    (<?= count($_SESSION['cart']) ?>)
+                <?php } else { ?>
+                    (0)
+                <?php } ?>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/ebook/index.php">Komedi</a></li>
+                <li><a class="dropdown-item" href="/ebook/index.php">Romance</a></li>
+                <li><a class="dropdown-item" href="/ebook/index.php">Kid</a></li>
+                <li><a class="dropdown-item" href="/ebook/index.php">Action</a></li>
+              </ul>
+          </li>
+        <?php 
+        if(isset($_SESSION['is_loggedin'])){ 
+         if((isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) { 
+        ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
             <ul class="dropdown-menu">
@@ -134,7 +131,6 @@
         } 
       }
         ?>
-
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <?= isset($_SESSION['is_loggedin']) ? $_SESSION['username'] : 'Guest' ?>
@@ -147,12 +143,11 @@
             <li><a class="dropdown-item" href="/ebook/Profile.php">Profile</a></li>
             <li><a class="dropdown-item" href="?action=sign_out">Sign out</a></li>
             <?php endif; ?>
-        </ul>
+          </ul>
         </li>
       <?php if($page === 'Home'): ?>
           <input class="form-control w-25 me-2" type="search" placeholder="Search" id="search" aria-label="Search">
       <?php endif;?>
-
     </ul>
   </div>
 </div>

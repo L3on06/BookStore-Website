@@ -1,22 +1,26 @@
 <?php 
-  include('Components/Header.php');
-  $_SESSION['page'] = 'cart';
+    include('Components/Header.php');
+    $_SESSION['page'] = 'Cart';
 
+    //Calling the db
     include('classes/CRUD.php');
     $crud = new CRUD;
 
+    //Errors
     $error = '';
     $errors = [];
 
-
+    // When id is true and read from db.
     if(isset($_GET['id'])) {
         $book = $crud->read('books', ['column' => 'id', 'value' => $_GET['id']]);
         $book = count($book) > 0 ? $book[0] : null;
     }
 
+    // When action is clicked
     if(isset($_GET['action'])){
         $id = $_GET['id'];
     
+    //When action is increase
     if($_GET['action'] === 'increase'){
         if(isset($id)) {
             $cbook = $_SESSION['cart'][$id];
@@ -30,6 +34,7 @@
         }
     }
 
+    //When action is decrease
     if($_GET['action'] === 'decrease'){
         if(isset($id)) {
             $cbook = $_SESSION['cart'][$id];
@@ -43,6 +48,7 @@
         }
     }
 
+    // When action is empty
     if(isset($_GET['action']) && ($_GET['action'] === 'empty_cart')) {
         $_SESSION['cart'] = [];
         header('Location: cart.php');
@@ -52,18 +58,16 @@
  
 <div class="cart my-5">
     <div class="container">
-        <?php if(isset($_SESSION['cart']) && (count($_SESSION['cart']) > 0)) {
-        ?>
+        <?php if(isset($_SESSION['cart']) && (count($_SESSION['cart']) > 0)) {?>
         <div class="table-responsive">
             <table class="table table-bordered">
-
                 <tr>
                     <th>Image</th>
                     <th>Title</th>
                     <th>Qty</th>
                     <th>Price</th>
                 </tr>
-                                   <?php 
+                <?php 
                     if(count($errors)) {
                         echo '<ul>';
                         foreach($errors as $error) {
@@ -91,10 +95,7 @@
                     </tr>
                     <?php
                         }
-                        // } else{
-                                // $_SESSION['cart'] = [];
-                        // }
-                        }
+                    }
                     ?>
                 </tr>
                 <tr>
@@ -112,7 +113,7 @@
         ?>
         <?php if(isset($_SESSION['cart']) && (count($_SESSION['cart']) > 0)) { ?>
          <a href="checkout.php" class="btn btn-sm btn-success">Checkout</a>
-        <a href="?action=empty_cart" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Empty cart</a>
+         <a href="?action=empty_cart" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Empty cart</a>
         <?php } ?>
     </div>
 </div>  

@@ -1,11 +1,12 @@
 <?php
+    include('Components/Header.php');
+    $_SESSION['page'] = 'CheckOut';
 
-  include('Components/Header.php');
-  $_SESSION['page'] = 'CheckOut';
-
+     //Calling the db
     include('classes/CRUD.php');
     $crud = new CRUD;
-  
+
+    //Errors
     $error = '';
     $errors = [];
     
@@ -23,13 +24,11 @@
         if(strlen($_POST['phone']) < 6)
             $errors[] = 'phone is not valid!';
 
-if(count($errors) === 0){
-
+    if(count($errors) === 0){
         $total = 0.0;
         foreach($_SESSION['cart'] as $b_id => $book) {
             $total += ($book['qty'] + $book['price']);
         }
-
         // create order
         $data = [
             'user_id' => $_SESSION['user_id'],
@@ -42,7 +41,6 @@ if(count($errors) === 0){
         ];
         
         $crud->create('orders', $data);
-
 
         // foreach cart book update order_product
         $o_id = $crud->read('orders', [], 1, ['column' => 'id', 'order' => 'DESC'])[0]['id'];
@@ -59,18 +57,16 @@ if(count($errors) === 0){
 
 <div class="cart my-5">
     <div class="container">
-        <?php if(isset($_SESSION['cart']) && (count($_SESSION['cart']) > 0)) {
-        ?>
+        <?php if(isset($_SESSION['cart']) && (count($_SESSION['cart']) > 0)) {?>
         <div class="table-responsive">
             <table class="table table-bordered">
-
                 <tr>
                     <th>Image</th>
                     <th>Title</th>
                     <th>Qty</th>
                     <th>Price</th>
                 </tr>
-                                   <?php 
+                <?php 
                     if(count($errors)) {
                         echo '<ul>';
                         foreach($errors as $error) {
@@ -83,11 +79,7 @@ if(count($errors) === 0){
                     <?php 
                     $total = 0.00;
                     foreach($_SESSION['cart'] as $book) {
-                        // print_r($book);
-                        // if($book !== ''){
                         if($book['qty'] > 0){
-                      print_r($book['qty']);
-
                         $total += ($book['qty'] * $book['price']);
                     ?>
                     <tr>
@@ -101,10 +93,7 @@ if(count($errors) === 0){
                         <td class="align-middle"><?= $book['qty'] * $book['price'] ?> EUR</td>
                     </tr>
                     <?php
-                        }
-                        // } else{
-                                // $_SESSION['cart'] = [];
-                        // }
+                            }
                         }
                     ?>
                 </tr>
@@ -127,8 +116,7 @@ if(count($errors) === 0){
 
 <div class="checkout my-5">
     <div class="container">
-       <?php if(isset($error)) echo '<p>'.$error.'</p>'; ?>
-                <?php 
+       <?php if(isset($error)) echo '<p>'.$error.'</p>'; 
                     if(count($errors)) {
                         echo '<ul>';
                         foreach($errors as $error) {
@@ -136,8 +124,7 @@ if(count($errors) === 0){
                         }
                         echo '</ul>';
                     }
-                ?>
-        <?php 
+                
         if(!isset($_SESSION['is_loggedin'])) {
         ?>
         <p>Please login first - <a href="login.php">login here</a>.</p>
@@ -170,5 +157,4 @@ if(count($errors) === 0){
         <?php } ?>
     </div>
 </div>  
-
 <?php include('Components/footer.php') ?>

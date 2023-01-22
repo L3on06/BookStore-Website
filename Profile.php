@@ -10,8 +10,6 @@
 
     $user = $crud->read('users', ['column' => 'id', 'value' => $_SESSION['user_id']]);
     $user = (is_array($user) && count($user) > 0) ? $user[0] : null;
-  
-    
 
     if(isset($_POST['update_profile_btn'])) {
         //validation
