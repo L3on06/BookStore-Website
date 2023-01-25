@@ -38,9 +38,9 @@
                 ], ['column' => 'id', 'value' => $user['id']])) {
                     // upload
                      move_uploaded_file($_FILES['image']['tmp_name'], '../assets/img/avatars/'.$filename);
-                    header('Location: profile.php?status=success');
+                    header('Location: /Login.php ');
                 } else {
-                    header('Location: profile.php?status=error');
+                    header('Location: /Login.php');
                 }
             } else { 
                 if($crud->update('users', [
@@ -49,9 +49,9 @@
                     'address' => $_POST['address'],
                     'phone' => $_POST['phone']
                 ], ['column' => 'id', 'value' => $user['id']])) {
-                    header('Location: profile.php?status=success');
+                    header('Location: /Login.php ');
                 } else {
-                    header('Location: profile.php?status=error');
+                    header('Location: /Login.php');
                 }
             }
         }
@@ -75,9 +75,9 @@
             if($crud->update('users', [
                 'password' => $password
             ], ['column' => 'id', 'value' => $user['id']])) {
-                header('Location: profile.php?status=success');
+                header('Location: /Login.php');
             } else {
-                header('Location: profile.php?status=error');
+                header('Location: /Login.php');
             }
         }
     }

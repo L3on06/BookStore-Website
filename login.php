@@ -43,14 +43,14 @@
                 }
                 
                 if($user['role'] === 'buyer') {
-                    header('Location: dashboard/orders/index.php');
+                    header('Location: /');
                 } else {  
-                    header('Location: dashboard/index.php');
+                    header('Location: /');
                 }
             } else {
                 $_SESSION['error'] = 'Credentials are incorrect!';
             }
-        } else {
+           } else {
             $_SESSION['error'] = 'User does not exist!';
         }
       }
@@ -67,21 +67,6 @@
                 <img src="./assets/img/logIn.png" class="img-fluid" alt="Sample image">
               </div>
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-              <?php 
-                if(isset($_SESSION['error'])) {
-                    echo '<p class="text-center">'.$_SESSION['error'].'</p>'; 
-                }
-            
-                if(isset($error)) echo '<p>'.$error.'</p>'; 
-                  if(count($errors)) {
-                     echo '<ul>';
-                 
-                  foreach($errors as $error) {
-                      echo '<li>'.$error.'</li>';
-                  }
-                  echo '</ul>';
-                 }
-              ?>
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Log In</p>
                  <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
                   <div class="d-flex flex-row align-items-center mb-4">

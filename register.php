@@ -42,7 +42,7 @@ if(isset($_POST['register_btn'])){
                 'phone' => $_POST['phone'],
                 'password' => $password,
             ])) {
-                header('Location: login.php');
+                header('Location: /Login.php');
             } else {
                 $error = 'Something want wrong!';
             }
@@ -116,25 +116,13 @@ if(isset($_POST['register_btn'])){
                     
                   <div class="form-check d-flex justify-content-center mb-5">
                     <button type="submit" class="btn btn-primary" name="register_btn">Register</button>
-                    <a href="login.php" class="btn btn-link">I already have an account</a>
+                    <a href="/login.php" class="btn btn-link">I already have an account</a>
                   </div>
 
                 </form>
               </div>
-              <?php if(isset($error)) echo '<p>'.$error.'</p>'; ?>
-                <?php 
-                    if(count($errors)) {
-                        echo '<ul>';
-                        foreach($errors as $error) {
-                            echo '<li>'.$error.'</li>';
-                        }
-                        echo '</ul>';
-                    }
-                ?>
               <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
                 <img src="./assets/img/SignUp.jpg" class="img-fluid" alt="Sample image">
-
               </div>
             </div>
           </div>

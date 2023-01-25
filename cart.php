@@ -67,15 +67,6 @@
                     <th>Qty</th>
                     <th>Price</th>
                 </tr>
-                <?php 
-                    if(count($errors)) {
-                        echo '<ul>';
-                        foreach($errors as $error) {
-                            echo '<li>'.$error.'</li>';
-                        }
-                        echo '</ul>';
-                    }
-                ?>
                 <tr>
                     <?php 
                     $total = 0.00;

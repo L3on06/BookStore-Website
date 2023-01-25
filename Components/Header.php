@@ -52,7 +52,7 @@
             setcookie('role', null, $expire);
             setcookie('is_loggedin', null, $expire);
 
-            header('Location: /ebook/index.php');
+            header('Location: /');
         }
     }
 ?>
@@ -82,20 +82,20 @@
 <body class="d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container">
-      <a class="navbar-brand" href="/ebook/">Book Store</a>
+      <a class="navbar-brand" href="/">Book Store</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item ">
-            <li> <a class="nav-link active" aria-current="page" href="/ebook/">Home</a></li>
+            <li> <a class="nav-link active" aria-current="page" href="/">Home</a></li>
           </li>
          <li class="nav-item ">
-            <li>  <a class="nav-link" href="/ebook/shop.php">Shop</a></li>
+            <li>  <a class="nav-link" href="/shop.php">Shop</a></li>
           </li>
          <li class="nav-item">
-            <a class="nav-link" href="/ebook/cart.php">Cart 
+            <a class="nav-link" href="/Cart.php">Cart 
                 <?php if(isset($_SESSION['cart'])) { ?>
                     (<?= count($_SESSION['cart']) ?>)
                 <?php } else { ?>
@@ -106,10 +106,10 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/ebook/index.php">Komedi</a></li>
-                <li><a class="dropdown-item" href="/ebook/index.php">Romance</a></li>
-                <li><a class="dropdown-item" href="/ebook/index.php">Kid</a></li>
-                <li><a class="dropdown-item" href="/ebook/index.php">Action</a></li>
+                <li><a class="dropdown-item" href="/index.php">Komedi</a></li>
+                <li><a class="dropdown-item" href="/index.php">Romance</a></li>
+                <li><a class="dropdown-item" href="/index.php">Kid</a></li>
+                <li><a class="dropdown-item" href="/index.php">Action</a></li>
               </ul>
           </li>
         <?php 
@@ -119,12 +119,12 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
             <ul class="dropdown-menu">
-                <li> <a class="nav-link active" aria-current="page" href="/ebook/dashboard/index.php">Home</a></li>
-                <li> <a class="nav-link" href="/ebook/dashboard/slides/index.php">Slides</a></li>
-                <li> <a class="nav-link" href="/ebook/dashboard/BookCategories/index.php">Book Categories</a></li>
-                <li> <a class="nav-link" href="/ebook/dashboard/SliderCategories/index.php">Slider Categories</a></li>
-                <li> <a class="nav-link" href="/ebook/dashboard/books/index.php">Books</a></li>
-                <li> <a class="nav-link" href="/ebook/dashboard/orders/index.php">Orders</a></li>
+                <li> <a class="nav-link active" aria-current="page" href="/dashboard/index.php">Home</a></li>
+                <li> <a class="nav-link" href="/dashboard/slides/index.php">Slides</a></li>
+                <li> <a class="nav-link" href="/dashboard/BookCategories/index.php">Book Categories</a></li>
+                <li> <a class="nav-link" href="/dashboard/SliderCategories/index.php">Slider Categories</a></li>
+                <li> <a class="nav-link" href="/dashboard/books/index.php">Books</a></li>
+                <li> <a class="nav-link" href="/dashboard/orders/index.php">Orders</a></li>
             </ul>
         </li>
         <?php 
@@ -137,10 +137,10 @@
             </a>
           <ul class="dropdown-menu">
             <?php if(!isset($_SESSION['is_loggedin'])): ?>
-            <li><a class="dropdown-item" href="/ebook/Login.php">login</a></li>
-            <li><a class="dropdown-item" href="/ebook/register.php">Register</a></li>
+            <li><a class="dropdown-item" href="/Login.php">login</a></li>
+            <li><a class="dropdown-item" href="/Register.php">Register</a></li>
             <?php else: ?>
-            <li><a class="dropdown-item" href="/ebook/Profile.php">Profile</a></li>
+            <li><a class="dropdown-item" href="/Profile.php">Profile</a></li>
             <li><a class="dropdown-item" href="?action=sign_out">Sign out</a></li>
             <?php endif; ?>
           </ul>
