@@ -1,3 +1,101 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* * {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+*/
+.hero {
+    background-color: #E6DDC4;
+    background-image: url('../../public/images/bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    background-position: right;
+    background-attachment: fixed;
+}
+
+/* .hero-container {
+    padding: 7rem 0;
+}
+
+.hero-title {
+    font-weight: bold;
+    letter-spacing: 1px;
+
+} */
+
+/* .hero-paragraf {
+    word-spacing: 3px;
+} */
+
+/* .carousel-inner {
+    background-color: transparent !important;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    background-color: #E6DDC4 !important;
+    width: 5rem !important;
+
+} */
+
+/* .slider-title>span {
+    color: #6D4431;
+    padding: 10px;
+    border: 3px inset #D8CB95;
+} */
+
+/* hr {
+    border-top: 25px solid #D8CB95 !important;
+}
+
+.border {
+    border: 10px solid !important;
+    padding: 10px !important;
+    border-image-source: linear-gradient(45deg, red, blue) !important;
+    border-image-slice: 1 !important;
+} */
+
+/* swiper */
+
+.swiper {
+    padding: 1.5rem !important;
+}
+
+.swiper-slide {
+    width: auto !important;
+}
+
+
+
+/* .book {
+    height: 300px !important;
+    object-fit: cover;
+} */
+
+/* .swiper-slide:hover {
+    scale: 1.07;
+} */
+
+.swiper-pagination {
+    position: unset !important;
+    margin-top: 1.5rem;
+}
+
+
+.swiper-pagination-bullet {
+    opacity: 0.5 !important;
+}
+
+.swiper-pagination-bullet-active {
+    width: 20px !important;
+    border-radius: 5px !important;
+    background: #D8CB95 !important;
+}
+
+/* End of slider */
