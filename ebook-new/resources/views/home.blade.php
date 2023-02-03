@@ -1,9 +1,6 @@
 <x-guest-layout>
+@section('title', 'Home')
 
-{{-- Navbar --}}
-@include('component.navbar')
-
-{{-- Latest products --}}
 
 @include('component.hero')
 
