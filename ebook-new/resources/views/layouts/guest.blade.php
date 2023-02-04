@@ -36,7 +36,7 @@
             {{ $slot }}
         </section>
 
-        <footer class="p-4 bg-white sm:p-6 dark:bg-gray-900">
+        <footer >
             @include('component.footer')
         </footer>
 
