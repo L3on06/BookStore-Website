@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title', 'Slider')
+
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -7,13 +10,13 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <a class="inline-block px-6 mb-5 py-3 text-sm text-white bg-indigo-500 hover:bg-indigo-600" href="{{route('sliders.create')}}">Create Sliders</a>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="relative overflow-x-auto">
 {{-- @if($sliders && count($sliders) > 0) --}}
 @foreach($sliders as $slider)
 @foreach($books as $book)
 @if($book->slider_category_id === $slider->id)
+@if(!empty($book->slider_category_id))
  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-center text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -61,7 +64,7 @@
                     {{$book->price}}
                 </td>
                 <td class="px-6 py-4 row flex justify-around">
-                    <form action="{{ route('deleteSlider', $book->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                    <form action="{{ route('sliders.destroy', ['slider' => $book->id]) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit">Delete</button>
@@ -72,6 +75,7 @@
             {{-- @endif --}}
             @else
                 <p class=" p-5">0 slides</p>
+            @endif
             @endif
             @endforeach
             @endforeach

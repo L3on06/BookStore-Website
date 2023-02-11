@@ -12,7 +12,7 @@
 
 <!-- Slides -->
 <div class="swiper-slide drop-shadow-[-10px_6px_12px_rgba(0,0,0,0.6)] hover:drop-shadow-[-10px_6px_12px_rgba(0,0,0,0.8)]">
-    <a href="ViewBook.php?id=">
+    <a href="{{route('books.show', ['book' => $book->id]) }}">
         <img  src="{{asset('storage/books/' .$book->image )}}" class="h-72 vhover:scale-[1.05] mx-4"  alt="{{$book->title}}">
     </a>
 </div>

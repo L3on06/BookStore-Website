@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Slider_category;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +20,12 @@ class BooksController extends Controller
     {
         $books = Book::all();
 
-
         return view('dashboard.books.index', [
 
         'books' => $books,
        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -79,7 +79,11 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+       return view('viewBook', [
+            'book' => $book
+       ]);
     }
 
     /**
@@ -91,13 +95,15 @@ class BooksController extends Controller
     public function edit($id)
     {
         $book = Book::findOrFail($id);
-        $sliders = Slider_category::all();
+        $sliders = Slider::all();
 
        return view('dashboard.books.edit', [
             'sliders' => $sliders,
             'book' => $book
        ]);
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -122,6 +128,13 @@ class BooksController extends Controller
 
 
         if($request->hasfile('image')) {
+
+            //Delete old images
+            $oldImages = 'public/books/'.$book->image;
+            if(Storage::exists($oldImages)){
+                Storage::delete($oldImages);
+            }
+
             // rename
             $file = $request['image']->getClientOriginalName();
             $name = pathinfo($file, PATHINFO_FILENAME);
@@ -138,10 +151,8 @@ class BooksController extends Controller
         $book->description = $request->description;
         $book->qty = $request->qty;
         $book->price = $request->price;
-        // $book->title = $request->title;
-        // $book->description = $request->description;
 
-        if($book->save()) {
+        if($book->update()) {
             return redirect()->route('books.index')->with('status', 'Slide was updated successfully.');
         }
         return redirect()->back()->with('status', 'Something want wrong!');
@@ -156,6 +167,12 @@ class BooksController extends Controller
     public function destroy($id)
     {
         $book = Book::findOrFail($id);
+
+            $oldImages = 'public/books/'.$book->image;
+            if(Storage::exists($oldImages))
+            {
+                Storage::delete($oldImages);
+            }
 
         if($book->delete()){
             return redirect()->route('books.index')->with('status', 'Slide was deleted successfully.');

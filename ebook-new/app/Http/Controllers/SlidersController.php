@@ -32,7 +32,7 @@ class SlidersController extends Controller
      */
     public function create()
     {
-        return view('dashboard.sliders.create');
+       //
     }
 
     /**
@@ -43,17 +43,7 @@ class SlidersController extends Controller
      */
     public function store(Request $request)
     {
-    $request->validate([
-            'name' => 'string',
-        ]);
-
-        $data = $request->only(['name']);
-
-        if(Slider::create($data)) {
-            return redirect()->route('sliders.index')->with('status', 'Slide was created successfully.');
-        }
-
-        return redirect()->back()->with('status', 'Something want wrong!');
+        //
     }
 
     /**
@@ -77,11 +67,7 @@ class SlidersController extends Controller
      */
     public function edit($id)
     {
-    $slider = Slider::findOrFail($id);
-
-        return view('dashboard.sliders.edit', [
-            'slider' => $slider
-        ]);
+        //
     }
 
     /**
@@ -91,24 +77,12 @@ class SlidersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update()
     {
-          $request->validate([
-              'name' => 'string',
-        ]);
-
-        $data = $request->only(['name']);
-
-        $slider = Slider::findOrFail($id);
-
-        $slider->name = $request->name;
-
-        if($slider->save()) {
-            return redirect()->route('sliders.index')->with('status', 'Slide was updated successfully.');
-        }
-
-        return redirect()->back()->with('status', 'Something want wrong!');
+        //
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -116,50 +90,13 @@ class SlidersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slider $slider)
+    public function destroy(Request $request, $id)
     {
-         if($slider->delete()){
-                 return redirect()->route('sliders.index')->with('status', 'Slide was deleted successfully.');
-         }
-                 // $deleteSliderCategory = $this->deleteSliderCategory($slider);
-    // $deleteSlider = $this->deleteSlider($request, $slider->id);
+        //  if($slider->delete()){
+        //          return redirect()->route('sliders.index')->with('status', 'Slide was deleted successfully.');
+        //  }
 
-    // if ($deleteSlider) {
-    // } elseif ( $deleteSliderCategory) {
-    //     return redirect()->route('sliderCategories.index')->with('status', 'Slide was deleted successfully.');
-    // }
-    //     return redirect()->back()->with('status', 'Something want wrong!');
-
-    }
-
-
-            /**
-     * Remove the specified resource from storage.
-     *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function deleteSliderCategory(Slider $slider)
-    //     {
-    //     if($slider->delete()){
-    // return true;
-    // }
-
-    // return false;
-    //     }
-
-
-               /**
-     * Remove the specified resource from storage.
-     *
-   * @param  Request $request
- * @param  int  $id
- * @return \Illuminate\Http\RedirectResponse
- */
-public function deleteSlider(Request $request, $id)
-{
-
-    $request->validate([
+            $request->validate([
         'slider_category_id' => '',
     ]);
 
@@ -168,12 +105,14 @@ public function deleteSlider(Request $request, $id)
     $slider = Book::findOrFail($id);
     $slider->slider_category_id = $request->slider_category_id;
 
+
     if ($slider->save()) {
       return redirect()->route('sliders.index')->with('status', 'Slide was deleted successfully.');
     }
             return redirect()->back()->with('status', 'Something want wrong!');
 
 }
-}
+    }
+
 
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Order;
-use App\Models\Slider_category;
+use App\Models\Slider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -27,7 +27,7 @@ class Book extends Model
     }
 
     public function slider(){
-        return $this->belongsTo(Slider_category::class);
+        return $this->belongsTo(Slider::class);
     }
 
     public function order(){
