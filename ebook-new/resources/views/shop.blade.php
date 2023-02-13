@@ -3,8 +3,6 @@
 
     @include('component.search')
 
-{{-- @include('component.hero') --}}
-
-
+    @include('component.books')
 
 </x-guest-layout>
