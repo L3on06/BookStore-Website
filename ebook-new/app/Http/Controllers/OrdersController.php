@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller
 {
@@ -15,13 +16,15 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        if(!Auth::user()->hasRole('admin')){
+            $orders = Order::where('user_id', Auth::id())->get();
+        } else {
+            $orders = Order::all();
+        }
 
         return view('dashboard.orders.index', [
             'orders' => $orders
         ]);
-
-
     }
 
     /**
@@ -87,6 +90,8 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
+
+
         $order = Order::findOrFail($id);
 
         if($order->delete()){

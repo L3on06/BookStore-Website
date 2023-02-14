@@ -1,3 +1,4 @@
+@if(Auth::user()->hasRole('admin'))
 <x-app-layout>
     @section('title', 'Books ')
 
@@ -86,3 +87,11 @@
         </div>
     </div>
 </x-app-layout>
+
+@else
+<section class="w-full h-screen">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <button><a href="{{route('home')}}">Home</a></button>
+    <lottie-player class="w-full" src="https://assets2.lottiefiles.com/packages/lf20_edfab5bo.json"  background="transparent" style="height: 90vh"  speed="1" loop  autoplay></lottie-player>
+</section>
+@endif

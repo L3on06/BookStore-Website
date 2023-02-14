@@ -7,7 +7,6 @@
 
    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <a class="inline-block px-6 mb-5 py-3 text-sm text-white bg-indigo-500 hover:bg-indigo-600" href="{{route('orders.index')}}">Create orders</a>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="relative overflow-x-auto">
 @if($orders && count($orders) > 0)
@@ -52,6 +51,7 @@
                                       {{ number_format($order->total, 2, '.', '')}} &euro;
                 </td>
                 <td></td>
+                @if(Auth::user()->hasRole('admin'))
                 <td class="px-6 py-4 row flex justify-around">
                                 <form action="{{ route('orders.destroy', ['order' => $order->id]) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                                     @csrf
@@ -59,6 +59,7 @@
                                     <button type="submit">Delete</button>
                                 </form>
                 </td>
+                @endif
             </tr>
             @endforeach
         </tbody>
