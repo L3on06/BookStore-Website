@@ -23,8 +23,13 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
+            'photo' => ['mimes:jpg,jpeg,png', 'max:1024'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
+
+        if (isset($input['photo'])) {
+             $user->updateProfilePhoto($input['photo']);
+            }
 
         return User::create([
             'name' => $input['name'],

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Order;
+use App\Models\Slider_category;
+use App\Models\Book;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Spatie\Permission\Traits\HasRoles;
@@ -60,4 +63,17 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function sliders(){
+        return $this->hasMany(Slider_category::class);
+    }
+
+    public function books(){
+        return $this->hasMany(Book::class);
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
 }
