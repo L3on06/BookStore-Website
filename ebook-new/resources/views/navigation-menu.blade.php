@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('home') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -15,12 +15,18 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+
+                    @role('admin')
                     <x-jet-nav-link href="{{ route('sliders.index') }}" :active="request()->routeIs('sliders.')">
                         {{ __('Sliders') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('sliderCategories.index') }}" :active="request()->routeIs('sliderCategories.')">
+                        {{ __('Slider Categories') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('books.index') }}" :active="request()->routeIs('books.')">
                         {{ __('Books') }}
                     </x-jet-nav-link>
+                    @endrole
                     <x-jet-nav-link href="{{ route('orders.index') }}" :active="request()->routeIs('orders.')">
                         {{ __('Orders') }}
                     </x-jet-nav-link>
@@ -157,6 +163,8 @@
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                     <div class="shrink-0 mr-3">
                         <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                        {{-- <img class="h-10 w-10 rounded-full object-cover" src="storage/{{Auth::user()->profile_photo_path}}" alt="{{ Auth::user()->name }}" /> --}}
+
                     </div>
                 @endif
 

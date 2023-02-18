@@ -1,46 +1,83 @@
-<nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
-  <div class="container flex flex-wrap items-center justify-between mx-auto">
-  <a href="{{ route('home') }}" class="flex items-center">
-      <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
-      <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-  </a>
+<nav x-data="{ open: false }" class="container mx-auto items-center bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+  <div class="flex flex-wrap justify-between">
+      <a href="{{ route('home') }}" class="flex">
+        <lottie-player class="logoImage" src="https://lottie.host/a5146218-06c1-460c-bce9-e8309b8a7bd4/8mRPp4sign.json" background="transparent" speed="0.5" loop  autoplay></lottie-player>
+        <h1 class="logoName">Book Store</h1>
+      </a>
  <div class="flex items-center md:order-2">
-      <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-        <img class="w-12 h-8 rounded-full" src="{{ asset('images/avatar/noavatar.png') }}" alt="user photo">
-      </button>
-      <!-- Dropdown menu -->
-      <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-          @if (Route::has('login'))
+
+    <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+
+    @if(Auth::user())
+    @auth
+    @if(Auth::user()->profile_photo_path === 'profile-photos/no_profile_photo.png')
+    <img class="logoImage" src="{{asset('storage/profile-photos/no_profile_photo.png')}}" alt="aaa" />
+    @else
+    <img class="logoImage" src="{{ asset('storage/' .Auth::user()->profile_photo_path)}}" alt="{{Auth::user()->name}}" />
+    @endif
+    @endauth
+    @else
+    <img class="w-16 h-16  rounded-full" src="{{asset('storage/profile-photos/no_profile_photo.png')}}" alt="aaa" />
+    @endif
+    </button>
+
+    <!-- Dropdown menu -->
+    <div class="z-50 hidden text-base bg-white divide-gray-100 rounded-lg" id="user-dropdown">
+          <!-- Authentication -->
+          @if(Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-                    @else
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
-                            <a href="{{ route('login') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Log in</a>
+                            @if(Auth::user()->hasRole('admin'))
+                            <a href="{{url('/dashboard')}}" class="linkProfile">Dashboard</a>
+                            @endif
+                        </li>
+                        <li>
+                            <a href="{{url('/user')}}" class="linkProfile">Manage Account</a>
+                        </li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+                                {{-- <x-jet-dropdown-link class="linkProfile" href="{{ route('logout') }}"
+                                         @click.prevent="$root.submit();">
+                                    {{ __('Log Out') }}
+                                </x-jet-dropdown-link> --}}
+                                <a href="{{ route('logout') }}" class="linkProfile" @click.prevent="$root.submit();">Log Out</a>
+                            </form>
+                        </li>
+                    </ul>
+                        @else
+                    <ul class="py-2" aria-labelledby="user-menu-button">
+                        <li>
+                            <a href="{{ route('login') }}" class="linkProfile">Log in</a>
                         </li>
                         <li>
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Register</a>
+                                <a href="{{ route('register') }}" class="linkProfile">Register</a>
                             @endif
                         </li>
+                    </ul>
                     @endauth
             @endif
       </div>
-      <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
-        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-    </button>
+    {{-- <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex p-2 text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" >
+    </button> --}}
+        <button data-collapse-toggle="mobile-menu-2" type="button" @click="open = ! open" class="inline-flex p-2 text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="mobile-menu-2" aria-expanded="false">
+            <svg class="h-9 w-9 " stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
   </div>
   <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-    <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+    <ul class="flex flex-col rounded-lg gap-6 p-5 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0" >
       <li>
-        <a href="{{route('shop')}}" class="{{Route::currentRouteName() === 'shop' ? 'bg-gray-200' : ''}}  block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Shop</a>
+        <a href="{{route('shop')}}" class="{{Route::currentRouteName() === 'shop' ? 'linkSelected' : ''}}  link">Shop</a>
       </li>
       <li>
-        <a href="{{route('cart.index')}}" class="{{Route::currentRouteName() === 'cart' ? 'bg-gray-200' : ''}} block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Cart({{count(\Cart::getContent())}})</a>
+        <a href="{{route('cart.index')}}" class="{{Route::currentRouteName() === 'cart' ? 'linkSelected' : ''}} link">Cart({{count(\Cart::getContent())}})</a>
       </li>
-      {{-- <li>
-        <a href="#" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
-      </li> --}}
     </ul>
   </div>
   </div>

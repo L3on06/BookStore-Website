@@ -1,10 +1,64 @@
+/* @screen md {
+    .link:hover {
+        @apply text-blue-700;
+    }
+    .logoName:hover{
+        @apply text-blue-700;
+    }
+} */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+/* Navbar */
+
+.link {
+    @apply text-2xl text-gray-700 border border-transparent border-4 hover:border-b-[#6d4b2f] hover:text-[#BA8A70];
+}
+.linkSelected {
+    @apply text-[#BA8A70];
+}
+
+
+.logoName {
+    @apply text-4xl font-bold self-center border border-transparent border-4 hover:border-b-[#6d4b2f];
+}
+
+.logoImage{
+    @apply w-16 h-16 rounded-full object-cover;
+}
+
+.linkProfile{
+    @apply block px-8 py-2 text-base  font-semibold text-gray-700 border border-transparent border-4 hover:border-b-[#6d4b2f] hover:text-[#BA8A70];
+}
+
+
+/*End of navbar */
+
+
+
+
+
+/* Footer */
+
+.footer{
+    @apply bg-[#e6ddc4];
+}
+
+.footerImage{
+    @apply w-64 h-60;
+}
+
+/* End of footer */
+
+* {
+    font-family: "Alice", serif;
+}
+
 .hero {
-    background-color: #E6DDC4;
-    background-image: url('../../public/images/bg.png');
+    background-color: #e6ddc4;
+    background-image: url("../../public/images/bg.png");
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
@@ -12,18 +66,16 @@
     background-attachment: fixed;
 }
 
-
-
 .slider-title>span {
-    color: #6D4431;
+    color: #6d4431;
     padding: 10px;
-    border: 3px inset #D8CB95;
+    border: 3px inset #D9C5B2;
 }
 
 /* swiper */
 
 hr {
-    border-top: 25px solid #E6DDC4;
+    border-top: 25px solid #e6ddc4;
 }
 
 .swiper {
@@ -43,13 +95,10 @@ hr {
     opacity: 0.5 !important;
 }
 
-
 .swiper-pagination-bullet-active {
     width: 20px !important;
     border-radius: 5px !important;
-    background: #D8CB95 !important;
+    background: #d8cb95 !important;
 }
-
-
 
 /* End of slider */
