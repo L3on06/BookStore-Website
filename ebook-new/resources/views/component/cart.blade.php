@@ -1,4 +1,4 @@
-  <div class="container p-2 mx-auto mt-10 bg-white ">
+  <div class="container p-2 mx-auto mt-10 bg-white p-10 ">
       <div class="w-full overflow-x-auto">
         @if(count(\Cart::getContent()) > 0)
         @if(Session::has('status'))
@@ -42,6 +42,18 @@
             <td class="p-2 float-right text-3xl"><strong>{{number_format(\Cart::getTotal(), 2, '.', '')}} &euro;</strong></td>
         </tfoot>
     </table>
+    @auth
+    <div class="flex justify-end mt-4 p-5">
+        <a href="{{route('checkout')}}" class="px-6 py-3 text-[#6d4b2f] font-semibold bg-[#e6ddc4] hover:text-[#e6ddc4] hover:bg-[#6d4b2f] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg text-center">
+          Checkout
+        </a>
+  </div>
+  @endauth
+  @guest
+
+  <a href="{{route('login')}}" class="inline-block rounded-xl py-3 px-5 text-[#6d4b2f] font-semibold bg-[#e6ddc4] hover:text-[#e6ddc4] hover:bg-[#6d4b2f] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-lg">Please Login first to checkout </a>
+
+  @endguest
         @else
         <div class="bg-[#e6ddc4] text-[#6d4b2f] flex text-center justify-between ">
             <p class="p-6 ">Cart is empty</p>

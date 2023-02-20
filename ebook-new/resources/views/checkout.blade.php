@@ -1,8 +1,9 @@
 <x-guest-layout>
-    @section('title', 'Cart')
+    @section('title', 'Checkout')
 
     @include('component/search')
     @include('component/cart')
+    @include('component/checkout')
 
 
 </x-guest-layout>
