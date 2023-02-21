@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <img src="{{asset('/images/logIn.png')}}" class="" alt="Sample image">
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -13,8 +13,10 @@
         @endif
 
         <form method="POST" action="{{ route('login') }}">
-            @csrf
+            <h1 class="text-5xl font-bold mb-10">log In</h1>
 
+
+            @csrf
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />

@@ -1,13 +1,16 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            {{-- <x-jet-authentication-card-logo /> --}}
+            <img src="{{asset('/images/Signup.jpg')}}" alt="Sample image">
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
 
+
         <form method="POST" action="{{ route('register') }}">
             @csrf
+            <h1 class="text-5xl font-bold mb-10">Sign Up</h1>
+
 
             <div>
                 <x-jet-label for="name" value="{{ __('Name') }}" />
