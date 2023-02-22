@@ -1,5 +1,5 @@
 
-<div class="container mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-20 gap-24">
+<div class="containe p-10 mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 my-20 gap-10">
         @foreach ($books as $book)
 
         <div class="w-80 border border-2 rounded-3xl shadow-xl mx-auto">
@@ -16,11 +16,9 @@
 
         <div class="flex items-center justify-between align-bottom ">
             <span class="text-3xl font-bold text-gray-900">{{number_format($book->price, 2, '.', '')}} &euro;</span>
-            <a href="{{route('books.show', ['book' => $book->id]) }}" class="text-[#6d4b2f] font-semibold bg-[#e6ddc4] hover:text-[#e6ddc4] hover:bg-[#6d4b2f] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add to cart</a>
+            <a href="{{route('books.show', ['book' => $book->id]) }}" class="text-[#6d4b2f] font-semibold bg-[#e6ddc4] hover:text-[#e6ddc4] hover:bg-[#6d4b2f] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">View Book</a>
         </div>
     </div>
-
-
 </div>
     @endforeach
 
