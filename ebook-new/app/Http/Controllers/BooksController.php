@@ -129,6 +129,7 @@ class BooksController extends Controller
 
         if($request->hasfile('image')) {
 
+
             //Delete old images
             $oldImages = 'public/books/'.$book->image;
             if(Storage::exists($oldImages)){
@@ -140,7 +141,6 @@ class BooksController extends Controller
             $name = pathinfo($file, PATHINFO_FILENAME);
             $ext = pathinfo($file, PATHINFO_EXTENSION);
             $image = time().'-'.$name.'.'.$ext;
-
             Storage::delete($book->image);
             Storage::putFileAs('public/books/', $request['image'], $image);
             $book->image = $image;

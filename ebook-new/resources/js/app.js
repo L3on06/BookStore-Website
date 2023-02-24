@@ -37,3 +37,10 @@ const swiper = new Swiper('.swiper', {
 });
 
 
+  const textarea = document.getElementById("my-text");
+    textarea.style.cssText = `height: ${textarea.scrollHeight}px; overflow-y: hidden`;
+    textarea.addEventListener("input", function(){
+        this.style.height = "auto";
+        this.style.height = `${this.scrollHeight}px`;
+    });
+
