@@ -7,7 +7,10 @@
 
    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <a href="{{URL::previous()}}" class="inline-block mb-5 px-6 py-3 text-[#6d4b2f] font-semibold bg-[#e6ddc4] hover:text-[#e6ddc4] hover:bg-[#6d4b2f] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg text-center">
+                    <- Back
+                 </a>
+            <div class="bg-white overflow-hidden shadow-xl">
                 <div class="relative overflow-x-auto">
 @if($orders && count($orders) > 0)
  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -65,7 +68,12 @@
         </tbody>
     </table>
   @else
-                    <p class=" p-5">0 slides</p>
+        <div class="bg-[#e6ddc4] text-[#6d4b2f] flex text-center justify-between ">
+            <p class="p-6 ">0 Orders</p>
+            <a href="{{route('shop')}}">
+                <p class="p-6 border border-[#6d4b2f] hover:bg-[#6d4b2f] hover:text-[#e6ddc4]">Go Shop</p>
+                </a>
+        </div>
                 @endif
 </div>
             </div>
