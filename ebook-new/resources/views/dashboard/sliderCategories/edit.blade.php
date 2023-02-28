@@ -8,6 +8,9 @@
     </x-slot>
 
     <div class="p-10 container mx-auto">
+        <a href="{{route('sliderCategories.index')}}" class="inline-block mb-5 px-6 py-3 text-[#6d4b2f] font-semibold bg-[#e6ddc4] hover:text-[#e6ddc4] hover:bg-[#6d4b2f] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg text-center">
+            <- Back
+         </a>
        <form autocomplete="off" action="{{ route('sliderCategories.update', ['sliderCategory' => $sliderCategories->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

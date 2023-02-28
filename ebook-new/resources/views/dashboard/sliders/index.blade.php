@@ -1,21 +1,11 @@
 <x-app-layout>
     @section('title', 'Slider')
 
-
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-
-
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <a href="{{URL::previous()}}" class="inline-block mb-5 px-6 py-3 text-[#6d4b2f] font-semibold bg-[#e6ddc4] hover:text-[#e6ddc4] hover:bg-[#6d4b2f] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg text-center">
-               <- Back
-            </a>
+            <a href="{{url('/dashboard')}}" class="inline-block mb-5 px-6 py-3 text-[#6d4b2f] font-semibold bg-[#e6ddc4] hover:text-[#e6ddc4] hover:bg-[#6d4b2f] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg text-center">
+                <- Back
+             </a>
         @if($sliders && count($sliders) > 0)
                     <table class="w-full bg-white overflow-hidden shadow-xl sm:rounded-lg text-[#6d4b2f]">
                         <thead class="text-center text-lg uppercase bg-[#e6ddc4] text-[#6d4b2f]">
