@@ -21,7 +21,6 @@ class BooksController extends Controller
         $books = Book::all();
 
         return view('dashboard.books.index', [
-
         'books' => $books,
        ]);
     }
@@ -128,8 +127,6 @@ class BooksController extends Controller
 
 
         if($request->hasfile('image')) {
-
-
             //Delete old images
             $oldImages = 'public/books/'.$book->image;
             if(Storage::exists($oldImages)){
